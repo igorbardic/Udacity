@@ -8,4 +8,7 @@
 
 5. Test with etl.ipynb and with test.ipynb skripts
 
+6. Run create_table.py over console - !python etl.py or run over terminal python etl.py
+
+
 

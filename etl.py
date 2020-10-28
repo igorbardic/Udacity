@@ -16,12 +16,12 @@ def process_song_file(cur, filepath):
     
     song_data = list(df[['song_id', 'title', 'artist_id', 'year', 'duration']].values[0].tolist())
     cur.execute(song_table_insert, song_data)
-    conn.commit() 
+    
         
     # insert artist record
     artist_data = list(df[['artist_id', 'artist_name', 'artist_location', 'artist_latitude', 'artist_longitude']].values[0].tolist())
     cur.execute(artist_table_insert, artist_data)
-    conn.commit()
+    
 
 
 def process_log_file(cur, filepath):
@@ -83,7 +83,6 @@ def process_data(cur, conn, filepath, func):
     # iterate over files and process
     for i, datafile in enumerate(all_files, 1):
         func(cur, datafile)
-        conn.commit()
         print('{}/{} files processed.'.format(i, num_files))
 
 
@@ -92,7 +91,9 @@ def main():
     cur = conn.cursor()
 
     process_data(cur, conn, filepath='data/song_data', func=process_song_file)
+    conn.commit()
     process_data(cur, conn, filepath='data/log_data', func=process_log_file)
+    conn.commit()
 
     conn.close()
 
