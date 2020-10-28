@@ -1,20 +1,20 @@
 # DROP TABLES
 
-songplay_table_drop = "DROP table songplays"
-user_table_drop = "DROP table users"
-song_table_drop = "DROP table songs"
-artist_table_drop = "DROP table artist"
-time_table_drop = "DROP table time"
+songplay_table_drop = "DROP TABLE IF EXISTS sonplays"
+user_table_drop = "DROP TABLE IF EXISTS users"
+song_table_drop = "DROP TABLE IF EXISTS songs"
+artist_table_drop = "DROP TABLE IF EXISTS artists"
+time_table_drop = "DROP TABLE IF EXISTS time"
 
 # CREATE TABLES
 
-songplay_table_create = ("CREATE TABLE IF NOT EXISTS songplays (songplay_id int, start_time int, user_id varchar, level int, song_id int, artist_id int, session_id int, location int, user_agent int)")
+songplay_table_create = ("CREATE TABLE IF NOT EXISTS songplays (songplay_id varchar, start_time timestamp, user_id varchar, level int, song_id varchar, artist_id varchar, session_id varchar, location varchar, user_agent varchar)")
 
-user_table_create = ("CREATE TABLE IF NOT EXISTS users (user_id int, first_name varchar, last_name varchar, gender varchar, level varchar)")
+user_table_create = ("CREATE TABLE IF NOT EXISTS users (user_id varchar, first_name varchar, last_name varchar, gender varchar, level varchar)")
 
-song_table_create = ("CREATE TABLE IF NOT EXISTS songs (song_id int, title int, artist_id varchar, year int, duration  int)")
+song_table_create = ("CREATE TABLE IF NOT EXISTS songs (song_id varchar, title varchar, artist_id varchar, year int, duration  int)")
 
-artist_table_create = ("CREATE TABLE IF NOT EXISTS artist (artist_id int, name int, location varchar, latitude int, longitude int)")
+artist_table_create = ("CREATE TABLE IF NOT EXISTS artists (artist_id varchar, name varchar, location varchar, latitude varchar, longitude varchar)")
 
 time_table_create = ("CREATE TABLE IF NOT EXISTS time (start_time int, hour int, day int, week int, month int, year int, weekday int)")
 
@@ -26,13 +26,24 @@ user_table_insert = ("INSERT INTO users (user_id, first_name, last_name, gender,
                      
 song_table_insert = ("INSERT INTO songs (song_id, title, artist_id, year, duration) VALUES (%s, %s, %s, %s, %s)")
 
-artist_table_insert = ("INSERT INTO artist (artist_id, name, location, latitude, longitude) VALUES (%s, %s, %s, %s, %s)")
+artist_table_insert = ("INSERT INTO artists (artist_id, name, location, latitude, longitude) VALUES (%s, %s, %s, %s, %s)")
 
 time_table_insert = ("INSERT INTO time (start_time, hour, day, week, month, year, weekday) VALUES (%s, %s, %s, %s, %s, %s, %s")
 
 # FIND SONGS
+song_select = ("""
+        SELECT songs.song_id,
+               artists.artist_id
+        FROM  songs
+          INNER JOIN artists
+            ON songs.artist_id = artists.artist_id
+        WHERE songs.title = %s
+              AND
+              artists.name = %s
+              AND
+              songs.duration = %s
+""")
 
-song_select = ("SELECT * FROM songs")
 
 # QUERY LISTS
 
