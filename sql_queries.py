@@ -16,7 +16,7 @@ song_table_create = ("CREATE TABLE IF NOT EXISTS songs (song_id varchar, title v
 
 artist_table_create = ("CREATE TABLE IF NOT EXISTS artists (artist_id varchar, name varchar, location varchar, latitude varchar, longitude varchar)")
 
-time_table_create = ("CREATE TABLE IF NOT EXISTS time (start_time int, hour int, day int, week int, month int, year int, weekday int)")
+time_table_create = ("CREATE TABLE IF NOT EXISTS time (start_time timestamp, hour int, day int, week int, month int, year int, weekday int)")
 
 # INSERT RECORDS
 
