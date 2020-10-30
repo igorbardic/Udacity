@@ -8,13 +8,16 @@ from pandas import Timestamp
 
 
 def process_song_file(cur, filepath):
+    """" Process song_file and insert song and artist record """
     # open song file
-    df = pd.read_json('data/song_data/A/A/A/TRAAAAW128F429D538.json', lines=True) 
+    song_files = get_files('data/song_data')
+    filepath = song_files[0] 
+    df = pd.read_json(filepath, lines=True) 
+    
+    #df = pd.read_json('data/song_data/A/A/A/TRAAAAW128F429D538.json', lines=True)  
 
     # insert song record
-    #song_data = df[["song_id", "title", "artist_id", "year", "duration"]].values[0].tolist()
-    
-    song_data = list(df[['song_id', 'title', 'artist_id', 'year', 'duration']].values[0].tolist())
+    song_data = df[['song_id', 'title', 'artist_id', 'year', 'duration']].values[0].tolist()
     cur.execute(song_table_insert, song_data)
     
         
@@ -25,8 +28,13 @@ def process_song_file(cur, filepath):
 
 
 def process_log_file(cur, filepath):
+    """" Process log_file and insert time, user and songplay data  """
     # open log file
-    df = pd.read_json('data/log_data/2018/11/2018-11-01-events.json', lines=True) 
+    log_files = get_files('data/log_data')
+    filepath = log_files[0] 
+    df = pd.read_json(filepath, lines=True) 
+    
+    #df = pd.read_json('data/log_data/2018/11/2018-11-30-events.json', lines=True) 
 
     # filter by NextSong action
     df = df[df['page']=='NextSong'] 
@@ -69,6 +77,7 @@ def process_log_file(cur, filepath):
 
 
 def process_data(cur, conn, filepath, func):
+    """" Process all file from directory """
     # get all files matching extension from directory
     all_files = []
     for root, dirs, files in os.walk(filepath):
