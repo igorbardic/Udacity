@@ -10,5 +10,10 @@
 
 6.Run create_table.py over console - !python etl.py or run over terminal python etl.py
 
+Primary key is unique value for each table, and not null value is define columnes which they must have any values.
+For on conflict state on user_id, update set level from free to paid.
+
+
+
 
 

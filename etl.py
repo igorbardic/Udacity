@@ -6,6 +6,14 @@ import datetime
 from sql_queries import *
 from pandas import Timestamp
 
+def get_files(filepath):
+    all_files = []
+    for root, dirs, files in os.walk(filepath):
+        files = glob.glob(os.path.join(root,'*.json'))
+        for f in files :
+            all_files.append(os.path.abspath(f))
+
+    return all_files
 
 def process_song_file(cur, filepath):
     """" Process song_file and insert song and artist record """
