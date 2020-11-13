@@ -8,7 +8,7 @@
 
 # 5.Test with etl.ipynb and with test.ipynb skripts
 
-# 6.Run python etl.py over console - !python etl.py or run over terminal python etl.py
+# 6.Run etl.py over console - !python etl.py or run over terminal python etl.py
 
 # Primary key is unique value for each table, and not null value is define columnes which they must have any values.
 # For on conflict state on user_id, update set level from free to paid.
